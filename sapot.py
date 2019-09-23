@@ -17,6 +17,24 @@ def find_tag_containing_text(soup, tag, text):
 
     return None
 
+def process_to_string(process):
+    result = ''
+    for step in process:
+        result += process_step_to_string(step) + '\n\n'
+
+    return result
+
+def process_step_to_string(process_step):
+    return """{}
+    Status: {}
+    Last page: {}
+    Date: {}
+    Days: {}""".format(process_step['location'],
+                       process_step['status'],
+                       process_step['last_page'],
+                       process_step['date'],
+                       process_step['days_at_location'])
+
 def parse_table(table):
     result = []
     rows = [[cell.getText() for cell in row.find_all('td')] for row in table.find_all('tr')]
